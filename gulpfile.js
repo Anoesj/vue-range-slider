@@ -3,16 +3,16 @@ const gulp = require('gulp')
 const autoprefixer = require('autoprefixer')
 const cssnano = require('cssnano')
 const stylus = require('gulp-stylus')
-const rename = require("gulp-rename")
+const rename = require('gulp-rename')
 const sourcemaps = require('gulp-sourcemaps')
 // const pxtorem = require('postcss-pxtorem')
 const fs = require('fs')
 const path = require('path')
 const rollup = require('rollup')
-const babel = require('rollup-plugin-babel')
+const { babel } = require('@rollup/plugin-babel')
 const uglify = require('uglify-js')
 const zlib = require('zlib')
-const json = require('rollup-plugin-json')
+const json = require('@rollup/plugin-json')
 const header = require('gulp-header')
 const version = require('./package').version
 
@@ -42,6 +42,7 @@ const builds = [{
   plugins: [
     json(),
     babel({
+      babelHelpers: 'bundled',
       exclude: 'node_modules/**'
     }),
   ]
@@ -56,6 +57,7 @@ const builds = [{
   plugins: [
     json(),
     babel({
+      babelHelpers: 'bundled',
       exclude: 'node_modules/**' // only transpile our source code
     })
   ],
@@ -70,6 +72,7 @@ const builds = [{
   plugins: [
     json(),
     babel({
+      babelHelpers: 'bundled',
       exclude: 'node_modules/**'
     })
   ]
@@ -99,8 +102,8 @@ function build(builds) {
 function buildEntry(config) {
   const isProd = /min\.js$/.test(config.output.file)
   return rollup.rollup(config).then((bundle) => {
-    bundle.generate(config).then(gen => {
-      let code = gen.code
+    bundle.generate(config.output).then(gen => {
+      let { code } = gen.output[0];
       if (isProd) {
         let minified = (config.banner ? config.banner + '\n' : '') + uglify.minify(code, {
           output: {
@@ -189,4 +192,4 @@ gulp.task('css', () => {
     })
 })
 
-gulp.task('default', ['js', 'css'])
+gulp.task('default', gulp.series('js', 'css'))

@@ -1,13 +1,13 @@
 /*!
  * vue-range-slider v1.0.3
- * (c) 2016-2019 xwpongithub
+ * (c) 2016-2020 xwpongithub
  * Released under the MIT License.
  */
 
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
-  (global.VueRangeSlider = factory());
+  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.VueRangeSlider = factory());
 }(this, (function () { 'use strict';
 
   // Unsharp text [#166](https://github.com/NightCatSama/vue-slider-component/issues/166)
@@ -1202,9 +1202,6 @@
             this.keydownFlag = true;
             this.flag = true;
             this.changeFocusSlider(this.actionsKeyboard[1]);
-            break;
-
-          default:
             break;
         }
       },

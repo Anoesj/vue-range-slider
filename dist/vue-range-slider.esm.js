@@ -1,6 +1,6 @@
 /*!
  * vue-range-slider v1.0.3
- * (c) 2016-2019 xwpongithub
+ * (c) 2016-2020 xwpongithub
  * Released under the MIT License.
  */
 
@@ -1196,9 +1196,6 @@ var Slider = {
           this.keydownFlag = true;
           this.flag = true;
           this.changeFocusSlider(this.actionsKeyboard[1]);
-          break;
-
-        default:
           break;
       }
     },
