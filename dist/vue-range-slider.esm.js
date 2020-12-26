@@ -4,6 +4,8 @@
  * Released under the MIT License.
  */
 
+import { h } from 'vue';
+
 // Unsharp text [#166](https://github.com/NightCatSama/vue-slider-component/issues/166)
 var roundToDPR = function () {
   var r = typeof window !== 'undefined' ? window.devicePixelRatio || 1 : 1;
@@ -175,7 +177,7 @@ var Slider = {
       type: [String, Boolean],
       default: 'always',
       validator: function validator(val) {
-        return ['hover', 'always'].indexOf(val) > -1;
+        return ['hover', 'always', false].indexOf(val) > -1;
       }
     },
     // 组件方向
@@ -311,209 +313,211 @@ var Slider = {
       isMounted: false
     };
   },
-  render: function render(h) {
+  setup: function setup() {
     var _this = this;
 
-    var sliderConBlocks = []; // dot
+    return function () {
+      var sliderConBlocks = []; // dot
 
-    if (this.isRange) {
-      var dot0 = h('div', {
-        ref: 'dot0',
-        staticClass: 'slider-dot',
-        class: [this.tooltipStatus, {
-          'slider-dot-focus': this.focusFlag && this.focusSlider === 0,
-          'slider-dot-dragging': this.flag && this.currentSlider === 0,
-          'slider-dot-disabled': !this.boolDisabled && this.disabledArray[0]
-        }],
-        style: this.dotStyles
-      }, [this._t('dot', [h('div', {
-        staticClass: 'slider-dot-handle',
-        style: [!this.boolDisabled && this.disabledArray[0] ? this.disabledDotStyles[0] : null, this.sliderStyles[0], this.focusFlag && this.focusSlider === 0 ? this.focusStyles[0] : null]
-      })], {
-        index: 0,
-        value: this.val[0],
-        disabled: this.disabledArray[0]
-      }), h('div', {
-        ref: 'tooltip0',
-        staticClass: 'slider-tooltip-wrap',
-        class: "slider-tooltip-".concat(this.tooltipDirection[0])
-      }, [this._t('tooltip', [h('span', {
+      if (_this.isRange) {
+        var dot0 = h('div', {
+          ref: 'dot0',
+          staticClass: 'slider-dot',
+          class: [_this.tooltipStatus, {
+            'slider-dot-focus': _this.focusFlag && _this.focusSlider === 0,
+            'slider-dot-dragging': _this.flag && _this.currentSlider === 0,
+            'slider-dot-disabled': !_this.boolDisabled && _this.disabledArray[0]
+          }],
+          style: _this.dotStyles
+        }, [_this._t('dot', [h('div', {
+          staticClass: 'slider-dot-handle',
+          style: [!_this.boolDisabled && _this.disabledArray[0] ? _this.disabledDotStyles[0] : null, _this.sliderStyles[0], _this.focusFlag && _this.focusSlider === 0 ? _this.focusStyles[0] : null]
+        })], {
+          index: 0,
+          value: _this.val[0],
+          disabled: _this.disabledArray[0]
+        }), h('div', {
+          ref: 'tooltip0',
+          staticClass: 'slider-tooltip-wrap',
+          class: "slider-tooltip-".concat(_this.tooltipDirection[0])
+        }, [_this._t('tooltip', [h('span', {
+          staticClass: 'slider-tooltip',
+          style: _this.tooltipStyles[0]
+        }, _this.formatter ? _this.formatting(_this.val[0]) : _this.val[0])], {
+          value: _this.val[0],
+          index: 0,
+          disabled: !_this.boolDisabled && _this.disabledArray[0]
+        })])]);
+        sliderConBlocks.push(dot0);
+        var dot1 = h('div', {
+          ref: 'dot1',
+          staticClass: 'slider-dot',
+          class: [_this.tooltipStatus, {
+            'slider-dot-focus': _this.focusFlag && _this.focusSlider === 1,
+            'slider-dot-dragging': _this.flag && _this.currentSlider === 1,
+            'slider-dot-disabled': !_this.boolDisabled && _this.disabledArray[1]
+          }],
+          style: _this.dotStyles
+        }, [_this._t('dot', [h('div', {
+          staticClass: 'slider-dot-handle',
+          style: [!_this.boolDisabled && _this.disabledArray[1] ? _this.disabledDotStyles[1] : null, _this.sliderStyles[1], _this.focusFlag && _this.focusSlider === 1 ? _this.focusStyles[1] : null]
+        })], {
+          index: 1,
+          value: _this.val[1],
+          disabled: _this.disabledArray[1]
+        }), h('div', {
+          ref: 'tooltip1',
+          staticClass: 'slider-tooltip-wrap',
+          class: "slider-tooltip-".concat(_this.tooltipDirection[1])
+        }, [_this._t('tooltip', [h('span', {
+          staticClass: 'slider-tooltip',
+          style: _this.tooltipStyles[1]
+        }, _this.formatter ? _this.formatting(_this.val[1]) : _this.val[1])], {
+          value: _this.val[1],
+          index: 1,
+          disabled: !_this.boolDisabled && _this.disabledArray[1]
+        })])]);
+        sliderConBlocks.push(dot1);
+      } else {
+        var dot = h('div', {
+          ref: 'dot',
+          staticClass: 'slider-dot',
+          class: [_this.tooltipStatus, {
+            'slider-dot-focus': _this.focusFlag && _this.focusSlider === 0,
+            'slider-dot-dragging': _this.flag && _this.currentSlider === 0
+          }],
+          style: _this.dotStyles
+        }, [_this._t('dot', [h('div', {
+          staticClass: 'slider-dot-handle',
+          style: [_this.sliderStyles, _this.focusFlag && _this.focusSlider === 0 ? _this.focusStyles : null]
+        })], {
+          value: _this.val,
+          disabled: _this.boolDisabled
+        }), h('div', {
+          staticClass: 'slider-tooltip-wrap',
+          class: "slider-tooltip-".concat(_this.tooltipDirection)
+        }, [_this._t('tooltip', [h('span', {
+          staticClass: 'slider-tooltip',
+          style: _this.tooltipStyles
+        }, _this.formatter ? _this.formatting(_this.val) : _this.val)], {
+          value: _this.val
+        })])]);
+        sliderConBlocks.push(dot);
+      } // piecewise
+
+
+      var dotWrapLen = _this.piecewiseDotWrap.length;
+      var ulBlock = h('ul', {
+        staticClass: 'slider-piecewise'
+      }, _this._l(_this.piecewiseDotWrap, function (item, i) {
+        var piecewiseDot = [];
+
+        if (_this.piecewise) {
+          piecewiseDot.push(h('span', {
+            staticClass: 'piecewise-dot',
+            style: [_this.piecewiseStyle, item.inRange ? _this.piecewiseActiveStyle : null]
+          }));
+        }
+
+        var piecewiseLabel = [];
+
+        if (_this.piecewiseLabel) {
+          piecewiseLabel.push(h('span', {
+            staticClass: 'piecewise-label',
+            style: [_this.labelStyle, item.inRange ? _this.labelActiveStyle : null]
+          }, item.label));
+        }
+
+        return h('li', {
+          key: i,
+          staticClass: 'piecewise-item',
+          style: [_this.piecewiseDotStyle, item.style]
+        }, [_this._t('piecewise', piecewiseDot, {
+          label: item.label,
+          index: i,
+          first: i === 0,
+          last: i === dotWrapLen - 1,
+          active: item.inRange
+        }), _this._t('label', piecewiseLabel, {
+          label: item.label,
+          index: i,
+          first: i === 0,
+          last: i === dotWrapLen - 1,
+          active: item.inRange
+        })]);
+      }));
+      sliderConBlocks.push(ulBlock); // process
+
+      var processBlock = h('div', {
+        ref: 'process',
+        staticClass: 'slider-process',
+        class: {
+          'slider-process-draggable': _this.isRange && _this.processDraggable
+        },
+        style: _this.processStyle,
+        on: {
+          click: function click(e) {
+            return _this.processClick(e);
+          }
+        }
+      }, [h('div', {
+        ref: 'mergedTooltip',
+        staticClass: 'merged-tooltip slider-tooltip-wrap',
+        class: "slider-tooltip-".concat(_this.isRange ? _this.tooltipDirection[0] : _this.tooltipDirection),
+        style: _this.tooltipMergedPosition
+      }, [_this._t('tooltip', [h('span', {
         staticClass: 'slider-tooltip',
-        style: this.tooltipStyles[0]
-      }, this.formatter ? this.formatting(this.val[0]) : this.val[0])], {
-        value: this.val[0],
-        index: 0,
-        disabled: !this.boolDisabled && this.disabledArray[0]
+        style: _this.tooltipStyles
+      }, _this.mergeFormatter ? _this.mergeFormatting(_this.val[0], _this.val[1]) : _this.formatter ? _this.val[0] === _this.val[1] ? _this.formatting(_this.val[0]) : "".concat(_this.formatting(_this.val[0]), " - ").concat(_this.formatting(_this.val[1])) : _this.val[0] === _this.val[1] ? _this.val[0] : "".concat(_this.val[0], " - ").concat(_this.val[1]))], {
+        value: _this.val,
+        merge: true
       })])]);
-      sliderConBlocks.push(dot0);
-      var dot1 = h('div', {
-        ref: 'dot1',
-        staticClass: 'slider-dot',
-        class: [this.tooltipStatus, {
-          'slider-dot-focus': this.focusFlag && this.focusSlider === 1,
-          'slider-dot-dragging': this.flag && this.currentSlider === 1,
-          'slider-dot-disabled': !this.boolDisabled && this.disabledArray[1]
-        }],
-        style: this.dotStyles
-      }, [this._t('dot', [h('div', {
-        staticClass: 'slider-dot-handle',
-        style: [!this.boolDisabled && this.disabledArray[1] ? this.disabledDotStyles[1] : null, this.sliderStyles[1], this.focusFlag && this.focusSlider === 1 ? this.focusStyles[1] : null]
-      })], {
-        index: 1,
-        value: this.val[1],
-        disabled: this.disabledArray[1]
-      }), h('div', {
-        ref: 'tooltip1',
-        staticClass: 'slider-tooltip-wrap',
-        class: "slider-tooltip-".concat(this.tooltipDirection[1])
-      }, [this._t('tooltip', [h('span', {
-        staticClass: 'slider-tooltip',
-        style: this.tooltipStyles[1]
-      }, this.formatter ? this.formatting(this.val[1]) : this.val[1])], {
-        value: this.val[1],
-        index: 1,
-        disabled: !this.boolDisabled && this.disabledArray[1]
-      })])]);
-      sliderConBlocks.push(dot1);
-    } else {
-      var dot = h('div', {
-        ref: 'dot',
-        staticClass: 'slider-dot',
-        class: [this.tooltipStatus, {
-          'slider-dot-focus': this.focusFlag && this.focusSlider === 0,
-          'slider-dot-dragging': this.flag && this.currentSlider === 0
-        }],
-        style: this.dotStyles
-      }, [this._t('dot', [h('div', {
-        staticClass: 'slider-dot-handle',
-        style: [this.sliderStyles, this.focusFlag && this.focusSlider === 0 ? this.focusStyles : null]
-      })], {
-        value: this.val,
-        disabled: this.boolDisabled
-      }), h('div', {
-        staticClass: 'slider-tooltip-wrap',
-        class: "slider-tooltip-".concat(this.tooltipDirection)
-      }, [this._t('tooltip', [h('span', {
-        staticClass: 'slider-tooltip',
-        style: this.tooltipStyles
-      }, this.formatter ? this.formatting(this.val) : this.val)], {
-        value: this.val
-      })])]);
-      sliderConBlocks.push(dot);
-    } // piecewise
+      sliderConBlocks.push(processBlock); // <input type="range">
 
-
-    var dotWrapLen = this.piecewiseDotWrap.length;
-    var ulBlock = h('ul', {
-      staticClass: 'slider-piecewise'
-    }, this._l(this.piecewiseDotWrap, function (item, i) {
-      var piecewiseDot = [];
-
-      if (_this.piecewise) {
-        piecewiseDot.push(h('span', {
-          staticClass: 'piecewise-dot',
-          style: [_this.piecewiseStyle, item.inRange ? _this.piecewiseActiveStyle : null]
+      if (!_this.isRange && !_this.data) {
+        sliderConBlocks.push(h('input', {
+          staticClass: 'slider-input',
+          attrs: {
+            type: 'range',
+            min: _this.min,
+            max: _this.max
+          },
+          domProps: {
+            value: _this.val
+          },
+          on: {
+            input: function input(e) {
+              return _this.val = e.target.value;
+            }
+          }
         }));
       }
 
-      var piecewiseLabel = [];
-
-      if (_this.piecewiseLabel) {
-        piecewiseLabel.push(h('span', {
-          staticClass: 'piecewise-label',
-          style: [_this.labelStyle, item.inRange ? _this.labelActiveStyle : null]
-        }, item.label));
-      }
-
-      return h('li', {
-        key: i,
-        staticClass: 'piecewise-item',
-        style: [_this.piecewiseDotStyle, item.style]
-      }, [_this._t('piecewise', piecewiseDot, {
-        label: item.label,
-        index: i,
-        first: i === 0,
-        last: i === dotWrapLen - 1,
-        active: item.inRange
-      }), _this._t('label', piecewiseLabel, {
-        label: item.label,
-        index: i,
-        first: i === 0,
-        last: i === dotWrapLen - 1,
-        active: item.inRange
-      })]);
-    }));
-    sliderConBlocks.push(ulBlock); // process
-
-    var processBlock = h('div', {
-      ref: 'process',
-      staticClass: 'slider-process',
-      class: {
-        'slider-process-draggable': this.isRange && this.processDraggable
-      },
-      style: this.processStyle,
-      on: {
-        click: function click(e) {
-          return _this.processClick(e);
-        }
-      }
-    }, [h('div', {
-      ref: 'mergedTooltip',
-      staticClass: 'merged-tooltip slider-tooltip-wrap',
-      class: "slider-tooltip-".concat(this.isRange ? this.tooltipDirection[0] : this.tooltipDirection),
-      style: this.tooltipMergedPosition
-    }, [this._t('tooltip', [h('span', {
-      staticClass: 'slider-tooltip',
-      style: this.tooltipStyles
-    }, this.mergeFormatter ? this.mergeFormatting(this.val[0], this.val[1]) : this.formatter ? this.val[0] === this.val[1] ? this.formatting(this.val[0]) : "".concat(this.formatting(this.val[0]), " - ").concat(this.formatting(this.val[1])) : this.val[0] === this.val[1] ? this.val[0] : "".concat(this.val[0], " - ").concat(this.val[1]))], {
-      value: this.val,
-      merge: true
-    })])]);
-    sliderConBlocks.push(processBlock); // <input type="range">
-
-    if (!this.isRange && !this.data) {
-      sliderConBlocks.push(h('input', {
-        staticClass: 'slider-input',
-        attrs: {
-          type: 'range',
-          min: this.min,
-          max: this.max
-        },
-        domProps: {
-          value: this.val
-        },
+      return h('div', {
+        ref: 'wrap',
+        staticClass: 'vue-range-slider slider-component',
+        class: [_this.flowDirection, _this.disabledClass, _this.stateClass, {
+          'slider-has-label': _this.piecewiseLabel
+        }],
+        style: [_this.wrapStyles, _this.boolDisabled ? _this.disabledStyle : null],
+        directives: [{
+          name: 'show',
+          value: _this.show
+        }],
         on: {
-          input: function input(e) {
-            return _this.val = e.target.value;
+          click: function click(e) {
+            return _this.wrapClick(e);
           }
         }
-      }));
-    }
-
-    return h('div', {
-      ref: 'wrap',
-      staticClass: 'vue-range-slider slider-component',
-      class: [this.flowDirection, this.disabledClass, this.stateClass, {
-        'slider-has-label': this.piecewiseLabel
-      }],
-      style: [this.wrapStyles, this.boolDisabled ? this.disabledStyle : null],
-      directives: [{
-        name: 'show',
-        value: this.show
-      }],
-      on: {
-        click: function click(e) {
-          return _this.wrapClick(e);
+      }, [h('div', {
+        ref: 'elem',
+        staticClass: 'slider',
+        style: [_this.elemStyles, _this.bgStyle],
+        attrs: {
+          'aria-hidden': true
         }
-      }
-    }, [h('div', {
-      ref: 'elem',
-      staticClass: 'slider',
-      style: [this.elemStyles, this.bgStyle],
-      attrs: {
-        'aria-hidden': true
-      }
-    }, sliderConBlocks)]);
+      }, sliderConBlocks)]);
+    };
   },
   computed: {
     val: {

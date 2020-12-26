@@ -36,6 +36,7 @@
     "@babel/preset-env": "^7.12.11",
     "@rollup/plugin-babel": "^5.2.2",
     "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^11.0.1",
     "autoprefixer": "^10.1.0",
     "babel-loader": "^8.2.2",
     "cssnano": "^4.1.10",
@@ -51,5 +52,12 @@
     "stylus": "^0.54.8",
     "uglify-js": "^3.12.3",
     "zlib": "^1.0.5"
+  },
+  "dependencies": {
+    "vue-demi": "^0.5.3"
+  },
+  "peerDependencies": {
+    "@vue/composition-api": "^1.0.0-beta.1",
+    "vue": "^2.0.0 || >=3.0.0-rc.0"
   }
 }

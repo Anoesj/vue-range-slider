@@ -13,6 +13,7 @@ const { babel } = require('@rollup/plugin-babel')
 const uglify = require('uglify-js')
 const zlib = require('zlib')
 const json = require('@rollup/plugin-json')
+const { nodeResolve } = require('@rollup/plugin-node-resolve')
 const header = require('gulp-header')
 const version = require('./package').version
 
@@ -40,6 +41,7 @@ const builds = [{
     banner
   },
   plugins: [
+    nodeResolve(),
     json(),
     babel({
       babelHelpers: 'bundled',
@@ -55,6 +57,7 @@ const builds = [{
     banner
   },
   plugins: [
+    nodeResolve(),
     json(),
     babel({
       babelHelpers: 'bundled',
@@ -70,6 +73,7 @@ const builds = [{
     banner
   },
   plugins: [
+    nodeResolve(),
     json(),
     babel({
       babelHelpers: 'bundled',

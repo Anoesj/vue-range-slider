@@ -1,9 +1,12 @@
+dependencies:
+  vue-demi: 0.5.3
 devDependencies:
   '@babel/core': 7.12.10
   '@babel/plugin-transform-runtime': 7.12.10_@babel+core@7.12.10
   '@babel/preset-env': 7.12.11_@babel+core@7.12.10
   '@rollup/plugin-babel': 5.2.2_909c1d41167457e73a96bf33c609a9e9
   '@rollup/plugin-json': 4.1.0_rollup@2.35.1
+  '@rollup/plugin-node-resolve': 11.0.1_rollup@2.35.1
   autoprefixer: 10.1.0_postcss@8.2.1
   babel-loader: 8.2.2_@babel+core@7.12.10
   cssnano: 4.1.10
@@ -992,6 +995,22 @@ packages:
       rollup: ^1.20.0 || ^2.0.0
     resolution:
       integrity: sha512-yfLbTdNS6amI/2OpmbiBoW12vngr5NW2jCJVZSBEz+H5KfUJZ2M7sDjk0U6GOOdCWFVScShte29o9NezJ53TPw==
+  /@rollup/plugin-node-resolve/11.0.1_rollup@2.35.1:
+    dependencies:
+      '@rollup/pluginutils': 3.1.0_rollup@2.35.1
+      '@types/resolve': 1.17.1
+      builtin-modules: 3.2.0
+      deepmerge: 4.2.2
+      is-module: 1.0.0
+      resolve: 1.19.0
+      rollup: 2.35.1
+    dev: true
+    engines:
+      node: '>= 10.0.0'
+    peerDependencies:
+      rollup: ^1.20.0||^2.0.0
+    resolution:
+      integrity: sha512-ltlsj/4Bhwwhb+Nb5xCz/6vieuEj2/BAkkqVIKmZwC7pIdl8srmgmglE4S0jFlZa32K4qvdQ6NHdmpRKD/LwoQ==
   /@rollup/pluginutils/3.1.0_rollup@2.35.1:
     dependencies:
       '@types/estree': 0.0.39
@@ -1013,10 +1032,20 @@ packages:
     dev: true
     resolution:
       integrity: sha512-3c+yGKvVP5Y9TYBEibGNR+kLtijnj7mYrXRg+WpFb2X9xm04g/DXYkfg4hmzJQosc9snFNUPkbYIhu+KAm6jJw==
+  /@types/node/14.14.16:
+    dev: true
+    resolution:
+      integrity: sha512-naXYePhweTi+BMv11TgioE2/FXU4fSl29HAH1ffxVciNsH3rYXjNP2yM8wqmSm7jS20gM8TIklKiTen+1iVncw==
   /@types/q/1.5.4:
     dev: true
     resolution:
       integrity: sha512-1HcDas8SEj4z1Wc696tH56G8OlRaH/sqZOynNNB+HF0WOeXPaxTtbYzJY2oEfiUxjSKjhCKr+MvR7dCHcEelug==
+  /@types/resolve/1.17.1:
+    dependencies:
+      '@types/node': 14.14.16
+    dev: true
+    resolution:
+      integrity: sha512-yy7HuzQhj0dhGpD8RLXSZWEkLsV9ibvxvi6EiJ3bkqLAO1RGo0WbkWQiwpRlSFymTJRz0d3k5LM3kkx8ArDbLw==
   /accord/0.26.4:
     dependencies:
       convert-source-map: 1.7.0
@@ -1427,6 +1456,12 @@ packages:
     dev: true
     resolution:
       integrity: sha512-MQcXEUbCKtEo7bhqEs6560Hyd4XaovZlO/k9V3hjVUF/zwW7KBVdSK4gIt/bzwS9MbR5qob+F5jusZsb0YQK2A==
+  /builtin-modules/3.2.0:
+    dev: true
+    engines:
+      node: '>=6'
+    resolution:
+      integrity: sha512-lGzLKcioL90C7wMczpkY0n/oART3MbBa8R9OFGE1rJxoVI86u4WAGfEk8Wjv10eKSyTHVGkSo3bvBylCEtk7LA==
   /cache-base/1.0.1:
     dependencies:
       collection-visit: 1.0.0
@@ -1948,6 +1983,12 @@ packages:
       node: '>=0.10'
     resolution:
       integrity: sha1-6zkTMzRYd1y4TNGh+uBiEGu4dUU=
+  /deepmerge/4.2.2:
+    dev: true
+    engines:
+      node: '>=0.10.0'
+    resolution:
+      integrity: sha512-FJ3UgI4gIl+PHZm53knsuSFpE+nESMr7M4v9QcgB7S63Kj/6WqMiFQJpBBYz1Pt+66bZpP3Q7Lye0Oo9MPKEdg==
   /default-compare/1.0.0:
     dependencies:
       kind-of: 5.1.0
@@ -2976,6 +3017,10 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha512-5G0tKtBTFImOqDnLB2hG6Bp2qcKEFduo4tZu9MT/H6NQv/ghhy30o55ufafxJ/LdH79LLs2Kfrn85TLKyA7BUg==
+  /is-module/1.0.0:
+    dev: true
+    resolution:
+      integrity: sha1-Mlj7afeMFNW4FdZkM2tM/7ZEFZE=
   /is-negated-glob/1.0.0:
     dev: true
     engines:
@@ -5237,6 +5282,14 @@ packages:
       node: '>= 0.10'
     resolution:
       integrity: sha512-LII3bXRFBZLlezoG5FfZVcXflZgWP/4dCwKtxd5ky9+LOtM4CS3bIRQsmR1KMnMW07jpE8fqR2lcxPZ+8sJIcw==
+  /vue-demi/0.5.3:
+    dev: false
+    hasBin: true
+    peerDependencies:
+      vue: ^2.6.0 || >=3.0.0-rc.1
+    requiresBuild: true
+    resolution:
+      integrity: sha512-1uW/aIJOEkRbyK3FBeReKbbMAZc/V5yUo4FQRprufm4GgMnAmJSSyk8mTJ9IgR4pbbCsQ7FddVHcuwz4IDEfGg==
   /when/3.7.8:
     dev: true
     resolution:
@@ -5333,6 +5386,7 @@ specifiers:
   '@babel/preset-env': ^7.12.11
   '@rollup/plugin-babel': ^5.2.2
   '@rollup/plugin-json': ^4.1.0
+  '@rollup/plugin-node-resolve': ^11.0.1
   autoprefixer: ^10.1.0
   babel-loader: ^8.2.2
   cssnano: ^4.1.10
@@ -5347,4 +5401,5 @@ specifiers:
   rollup: ^2.35.1
   stylus: ^0.54.8
   uglify-js: ^3.12.3
+  vue-demi: ^0.5.3
   zlib: ^1.0.5

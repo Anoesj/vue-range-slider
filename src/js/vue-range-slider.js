@@ -1,4 +1,5 @@
 import {roundToDPR, isMobile, isArray, isDiff, prefixStyle, addEvent, removeEvent} from './utils'
+import { h } from 'vue-demi'
 
 const transform = prefixStyle('transform')
 const transitionDuration = prefixStyle('transitionDuration')
@@ -220,258 +221,260 @@ export default {
       isMounted: false
     }
   },
-  render(h) {
-    const sliderConBlocks = []
+  setup() {
+    return () => {
+      const sliderConBlocks = []
 
-    // dot
-    if (this.isRange) {
-      const dot0 = h('div', {
-        ref: 'dot0',
-        staticClass: 'slider-dot',
-        class: [this.tooltipStatus, {
-          'slider-dot-focus': this.focusFlag && this.focusSlider === 0,
-          'slider-dot-dragging': this.flag && this.currentSlider === 0,
-          'slider-dot-disabled': !this.boolDisabled && this.disabledArray[0]
-        }],
-        style: this.dotStyles
-      }, [
-        this._t('dot', [
-          h('div', {
-            staticClass: 'slider-dot-handle',
-            style: [
-              (!this.boolDisabled && this.disabledArray[0]) ? this.disabledDotStyles[0] : null,
-              this.sliderStyles[0],
-              this.focusFlag && this.focusSlider === 0 ? this.focusStyles[0]: null
-            ]
-          })
-        ], {
-          index: 0,
-          value: this.val[0],
-          disabled: this.disabledArray[0]
-        }),
-        h('div', {
-          ref: 'tooltip0',
-          staticClass: 'slider-tooltip-wrap',
-          class: `slider-tooltip-${this.tooltipDirection[0]}`
-        }, [
-          this._t('tooltip', [
-            h('span', {
-              staticClass: 'slider-tooltip',
-              style: this.tooltipStyles[0]
-            }, this.formatter ? this.formatting(this.val[0]) : this.val[0])
-          ], {
-            value: this.val[0],
-            index: 0,
-            disabled: !this.boolDisabled && this.disabledArray[0]
-          })
-        ])
-      ])
-      sliderConBlocks.push(dot0)
-
-      const dot1 = h('div', {
-        ref: 'dot1',
-        staticClass: 'slider-dot',
-        class: [this.tooltipStatus, {
-          'slider-dot-focus': this.focusFlag && this.focusSlider === 1,
-          'slider-dot-dragging': this.flag && this.currentSlider === 1,
-          'slider-dot-disabled': !this.boolDisabled && this.disabledArray[1]
-        }],
-        style: this.dotStyles
-      }, [
-        this._t('dot', [
-          h('div', {
-            staticClass: 'slider-dot-handle',
-            style: [
-              (!this.boolDisabled && this.disabledArray[1]) ? this.disabledDotStyles[1] : null,
-              this.sliderStyles[1],
-              this.focusFlag && this.focusSlider === 1 ? this.focusStyles[1]: null
-            ]
-          })
-        ], {
-          index: 1,
-          value: this.val[1],
-          disabled: this.disabledArray[1]
-        }),
-        h('div', {
-          ref: 'tooltip1',
-          staticClass: 'slider-tooltip-wrap',
-          class: `slider-tooltip-${this.tooltipDirection[1]}`
-        }, [
-          this._t('tooltip', [
-            h('span', {
-              staticClass: 'slider-tooltip',
-              style: this.tooltipStyles[1]
-            }, this.formatter ? this.formatting(this.val[1]) : this.val[1])
-          ], {
-            value: this.val[1],
-            index: 1,
-            disabled: !this.boolDisabled && this.disabledArray[1]
-          })
-        ])
-      ])
-      sliderConBlocks.push(dot1)
-    } else {
-      const dot = h('div', {
-        ref: 'dot',
-        staticClass: 'slider-dot',
-        class: [
-          this.tooltipStatus,
-          {
+      // dot
+      if (this.isRange) {
+        const dot0 = h('div', {
+          ref: 'dot0',
+          staticClass: 'slider-dot',
+          class: [this.tooltipStatus, {
             'slider-dot-focus': this.focusFlag && this.focusSlider === 0,
-            'slider-dot-dragging': this.flag && this.currentSlider === 0
-          }
-        ],
-        style: this.dotStyles
-      }, [
-        this._t('dot', [
+            'slider-dot-dragging': this.flag && this.currentSlider === 0,
+            'slider-dot-disabled': !this.boolDisabled && this.disabledArray[0]
+          }],
+          style: this.dotStyles
+        }, [
+          this._t('dot', [
+            h('div', {
+              staticClass: 'slider-dot-handle',
+              style: [
+                (!this.boolDisabled && this.disabledArray[0]) ? this.disabledDotStyles[0] : null,
+                this.sliderStyles[0],
+                this.focusFlag && this.focusSlider === 0 ? this.focusStyles[0]: null
+              ]
+            })
+          ], {
+            index: 0,
+            value: this.val[0],
+            disabled: this.disabledArray[0]
+          }),
           h('div', {
-            staticClass: 'slider-dot-handle',
-            style: [
-              this.sliderStyles,
-              this.focusFlag && this.focusSlider === 0 ? this.focusStyles : null
-            ]
+            ref: 'tooltip0',
+            staticClass: 'slider-tooltip-wrap',
+            class: `slider-tooltip-${this.tooltipDirection[0]}`
+          }, [
+            this._t('tooltip', [
+              h('span', {
+                staticClass: 'slider-tooltip',
+                style: this.tooltipStyles[0]
+              }, this.formatter ? this.formatting(this.val[0]) : this.val[0])
+            ], {
+              value: this.val[0],
+              index: 0,
+              disabled: !this.boolDisabled && this.disabledArray[0]
+            })
+          ])
+        ])
+        sliderConBlocks.push(dot0)
+
+        const dot1 = h('div', {
+          ref: 'dot1',
+          staticClass: 'slider-dot',
+          class: [this.tooltipStatus, {
+            'slider-dot-focus': this.focusFlag && this.focusSlider === 1,
+            'slider-dot-dragging': this.flag && this.currentSlider === 1,
+            'slider-dot-disabled': !this.boolDisabled && this.disabledArray[1]
+          }],
+          style: this.dotStyles
+        }, [
+          this._t('dot', [
+            h('div', {
+              staticClass: 'slider-dot-handle',
+              style: [
+                (!this.boolDisabled && this.disabledArray[1]) ? this.disabledDotStyles[1] : null,
+                this.sliderStyles[1],
+                this.focusFlag && this.focusSlider === 1 ? this.focusStyles[1]: null
+              ]
+            })
+          ], {
+            index: 1,
+            value: this.val[1],
+            disabled: this.disabledArray[1]
+          }),
+          h('div', {
+            ref: 'tooltip1',
+            staticClass: 'slider-tooltip-wrap',
+            class: `slider-tooltip-${this.tooltipDirection[1]}`
+          }, [
+            this._t('tooltip', [
+              h('span', {
+                staticClass: 'slider-tooltip',
+                style: this.tooltipStyles[1]
+              }, this.formatter ? this.formatting(this.val[1]) : this.val[1])
+            ], {
+              value: this.val[1],
+              index: 1,
+              disabled: !this.boolDisabled && this.disabledArray[1]
+            })
+          ])
+        ])
+        sliderConBlocks.push(dot1)
+      } else {
+        const dot = h('div', {
+          ref: 'dot',
+          staticClass: 'slider-dot',
+          class: [
+            this.tooltipStatus,
+            {
+              'slider-dot-focus': this.focusFlag && this.focusSlider === 0,
+              'slider-dot-dragging': this.flag && this.currentSlider === 0
+            }
+          ],
+          style: this.dotStyles
+        }, [
+          this._t('dot', [
+            h('div', {
+              staticClass: 'slider-dot-handle',
+              style: [
+                this.sliderStyles,
+                this.focusFlag && this.focusSlider === 0 ? this.focusStyles : null
+              ]
+            })
+          ], {
+            value: this.val,
+            disabled: this.boolDisabled
+          }),
+          h('div', {
+            staticClass: 'slider-tooltip-wrap',
+            class: `slider-tooltip-${this.tooltipDirection}`
+          }, [
+            this._t('tooltip', [
+              h('span', {
+                  staticClass: 'slider-tooltip',
+                  style: this.tooltipStyles
+                },
+                this.formatter ? this.formatting(this.val) : this.val
+              )
+            ], {
+              value: this.val
+            })
+          ])
+        ])
+        sliderConBlocks.push(dot)
+      }
+
+      // piecewise
+      const dotWrapLen = this.piecewiseDotWrap.length
+      const ulBlock = h('ul', {
+        staticClass: 'slider-piecewise'
+      }, this._l(this.piecewiseDotWrap, (item, i) => {
+        const piecewiseDot = []
+        if (this.piecewise) {
+          piecewiseDot.push(h('span', {
+            staticClass: 'piecewise-dot',
+            style: [this.piecewiseStyle, item.inRange ? this.piecewiseActiveStyle : null]
+          }))
+        }
+
+        const piecewiseLabel = []
+        if (this.piecewiseLabel) {
+          piecewiseLabel.push(h('span', {
+            staticClass: 'piecewise-label',
+            style: [this.labelStyle, item.inRange ? this.labelActiveStyle : null]
+          }, item.label))
+        }
+
+        return h('li', {
+          key: i,
+          staticClass: 'piecewise-item',
+          style: [this.piecewiseDotStyle, item.style]
+        }, [
+          this._t('piecewise', piecewiseDot , {
+            label: item.label,
+            index: i,
+            first: i === 0,
+            last: i === dotWrapLen - 1,
+            active: item.inRange
+          }),
+          this._t('label', piecewiseLabel, {
+            label: item.label,
+            index: i,
+            first: i === 0,
+            last: i === dotWrapLen - 1,
+            active: item.inRange
           })
-        ], {
-          value: this.val,
-          disabled: this.boolDisabled
-        }),
+        ])
+      }))
+      sliderConBlocks.push(ulBlock)
+
+      // process
+      const processBlock = h('div', {
+        ref: 'process',
+        staticClass: 'slider-process',
+        class: {
+          'slider-process-draggable': this.isRange && this.processDraggable
+        },
+        style: this.processStyle,
+        on: {
+          click: e => this.processClick(e)
+        }
+      }, [
         h('div', {
-          staticClass: 'slider-tooltip-wrap',
-          class: `slider-tooltip-${this.tooltipDirection}`
+          ref: 'mergedTooltip',
+          staticClass: 'merged-tooltip slider-tooltip-wrap',
+          class: `slider-tooltip-${this.isRange ? this.tooltipDirection[0] : this.tooltipDirection}`,
+          style: this.tooltipMergedPosition
         }, [
           this._t('tooltip', [
             h('span', {
                 staticClass: 'slider-tooltip',
                 style: this.tooltipStyles
-              },
-              this.formatter ? this.formatting(this.val) : this.val
+              }, this.mergeFormatter ? this.mergeFormatting(this.val[0], this.val[1]) : (this.formatter ? (this.val[0] === this.val[1] ? this.formatting(this.val[0]) : `${this.formatting(this.val[0])} - ${this.formatting(this.val[1])}`) : (this.val[0] === this.val[1] ? this.val[0] : `${this.val[0]} - ${this.val[1]}`))
             )
           ], {
-            value: this.val
+            value: this.val,
+            merge: true
           })
         ])
       ])
-      sliderConBlocks.push(dot)
-    }
+      sliderConBlocks.push(processBlock)
 
-    // piecewise
-    const dotWrapLen = this.piecewiseDotWrap.length
-    const ulBlock = h('ul', {
-      staticClass: 'slider-piecewise'
-    }, this._l(this.piecewiseDotWrap, (item, i) => {
-      const piecewiseDot = []
-      if (this.piecewise) {
-        piecewiseDot.push(h('span', {
-          staticClass: 'piecewise-dot',
-          style: [this.piecewiseStyle, item.inRange ? this.piecewiseActiveStyle : null]
+      // <input type="range">
+      if (!this.isRange && !this.data) {
+        sliderConBlocks.push(h('input', {
+          staticClass: 'slider-input',
+          attrs: {
+            type: 'range',
+            min: this.min,
+            max: this.max
+          },
+          domProps: {
+            value: this.val
+          },
+          on: {
+            input: e => this.val = e.target.value
+          }
         }))
       }
 
-      const piecewiseLabel = []
-      if (this.piecewiseLabel) {
-        piecewiseLabel.push(h('span', {
-          staticClass: 'piecewise-label',
-          style: [this.labelStyle, item.inRange ? this.labelActiveStyle : null]
-        }, item.label))
-      }
-
-      return h('li', {
-        key: i,
-        staticClass: 'piecewise-item',
-        style: [this.piecewiseDotStyle, item.style]
-      }, [
-        this._t('piecewise', piecewiseDot , {
-          label: item.label,
-          index: i,
-          first: i === 0,
-          last: i === dotWrapLen - 1,
-          active: item.inRange
-        }),
-        this._t('label', piecewiseLabel, {
-          label: item.label,
-          index: i,
-          first: i === 0,
-          last: i === dotWrapLen - 1,
-          active: item.inRange
-        })
-      ])
-    }))
-    sliderConBlocks.push(ulBlock)
-
-    // process
-    const processBlock = h('div', {
-      ref: 'process',
-      staticClass: 'slider-process',
-      class: {
-        'slider-process-draggable': this.isRange && this.processDraggable
-      },
-      style: this.processStyle,
-      on: {
-        click: e => this.processClick(e)
-      }
-    }, [
-      h('div', {
-        ref: 'mergedTooltip',
-        staticClass: 'merged-tooltip slider-tooltip-wrap',
-        class: `slider-tooltip-${this.isRange ? this.tooltipDirection[0] : this.tooltipDirection}`,
-        style: this.tooltipMergedPosition
-      }, [
-        this._t('tooltip', [
-          h('span', {
-              staticClass: 'slider-tooltip',
-              style: this.tooltipStyles
-            }, this.mergeFormatter ? this.mergeFormatting(this.val[0], this.val[1]) : (this.formatter ? (this.val[0] === this.val[1] ? this.formatting(this.val[0]) : `${this.formatting(this.val[0])} - ${this.formatting(this.val[1])}`) : (this.val[0] === this.val[1] ? this.val[0] : `${this.val[0]} - ${this.val[1]}`))
-          )
-        ], {
-          value: this.val,
-          merge: true
-        })
-      ])
-    ])
-    sliderConBlocks.push(processBlock)
-
-    // <input type="range">
-    if (!this.isRange && !this.data) {
-      sliderConBlocks.push(h('input', {
-        staticClass: 'slider-input',
-        attrs: {
-          type: 'range',
-          min: this.min,
-          max: this.max
-        },
-        domProps: {
-          value: this.val
-        },
+      return h('div', {
+        ref: 'wrap',
+        staticClass: 'vue-range-slider slider-component',
+        class: [this.flowDirection, this.disabledClass, this.stateClass, {'slider-has-label': this.piecewiseLabel}],
+        style: [this.wrapStyles, this.boolDisabled ? this.disabledStyle : null],
+        directives: [
+          {
+            name: 'show',
+            value: this.show
+          }
+        ],
         on: {
-          input: e => this.val = e.target.value
+          click: e => this.wrapClick(e)
         }
-      }))
-    }
-
-    return h('div', {
-      ref: 'wrap',
-      staticClass: 'vue-range-slider slider-component',
-      class: [this.flowDirection, this.disabledClass, this.stateClass, {'slider-has-label': this.piecewiseLabel}],
-      style: [this.wrapStyles, this.boolDisabled ? this.disabledStyle : null],
-      directives: [
-        {
-          name: 'show',
-          value: this.show
-        }
-      ],
-      on: {
-        click: e => this.wrapClick(e)
-      }
-    }, [
-      h('div', {
-        ref: 'elem',
-        staticClass: 'slider',
-        style: [this.elemStyles, this.bgStyle],
-        attrs: {
-          'aria-hidden': true
-        }
-      }, sliderConBlocks)
-    ])
+      }, [
+        h('div', {
+          ref: 'elem',
+          staticClass: 'slider',
+          style: [this.elemStyles, this.bgStyle],
+          attrs: {
+            'aria-hidden': true
+          }
+        }, sliderConBlocks)
+      ])
+    };
   },
   computed: {
     val: {
